@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 
 function App() {
     return (
-        <GoogleOAuthProvider clientId='926722509468-sbm42eudr90qbo4uqutoscqmjuhj1qs5.apps.googleusercontent.com'>
+        <GoogleOAuthProvider clientId='YOUR_CLIENT_ID'>
             <GoogleLogin
                 buttonText='Login'
                 onSuccess={(response) => {
