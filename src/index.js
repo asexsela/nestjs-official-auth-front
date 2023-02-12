@@ -1,17 +1,27 @@
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+function App() {
+    return (
+        <GoogleOAuthProvider clientId='926722509468-sbm42eudr90qbo4uqutoscqmjuhj1qs5.apps.googleusercontent.com'>
+            <GoogleLogin
+                buttonText='Login'
+                onSuccess={(response) => {
+                    fetch('http://localhost:3000/authentication/google', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            token: response.credential
+                        }),
+                    }).then(response => response.json()).then((data) => console.log(data));
+                }}
+            />
+        </GoogleOAuthProvider>
+    );
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(<App />);
